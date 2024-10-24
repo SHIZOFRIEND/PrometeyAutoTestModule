@@ -210,8 +210,6 @@ public class OptTest {
         System.out.println("Элемент с текстом '" + searchText + "' выбран.");
         wait.until(ExpectedConditions.attributeToBe(recordsDropdown, "value", searchText));
     }
-
-
     private void navigateToProcessRecord() {
          System.out.println("Переход к реестру записей процессов.");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Реестр записей процессов')]"))).click();
