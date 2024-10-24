@@ -9,6 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.junit.Assert.assertTrue;
 import java.text.SimpleDateFormat;
@@ -146,6 +147,7 @@ public class OptTest {
             navigateToProcessRecord();
             selectDropdownOptionByLabel(optionLabel);
             Thread.sleep(2000);
+            scrollHalfPage();
             WebElement idComponent = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("e4ple8j-id")));
             String actualId = idComponent.getAttribute("value");
             System.out.println("Полученное значение ID: " + actualId);
@@ -196,9 +198,25 @@ public class OptTest {
             e.printStackTrace();
         }
     }
+    private void scrollHalfPage() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Long windowHeight = (Long) js.executeScript("return window.innerHeight;");
+        js.executeScript("window.scrollBy(0, arguments[0] / 2);", windowHeight);
+    }
+    private void selectRecordByText(String searchText) {
+        WebElement recordsDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("select[name='applicationTable_length']")));
+        Select select = new Select(recordsDropdown);
+        select.selectByVisibleText(searchText);
+        System.out.println("Элемент с текстом '" + searchText + "' выбран.");
+        wait.until(ExpectedConditions.attributeToBe(recordsDropdown, "value", searchText));
+    }
+
+
     private void navigateToProcessRecord() {
-        System.out.println("Переход к реестру записей процессов.");
+         System.out.println("Переход к реестру записей процессов.");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Реестр записей процессов')]"))).click();
+        selectRecordByText("25");
+        scrollHalfPage();
         List<WebElement> processRows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(text(), '13815')]")));
         assertFalse("Карточка с ID 13815 не найдена.", processRows.isEmpty());
         for (WebElement processRow : processRows) {
