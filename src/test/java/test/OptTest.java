@@ -213,7 +213,7 @@ public class OptTest {
     private void navigateToProcessRecord() {
          System.out.println("Переход к реестру записей процессов.");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Реестр записей процессов')]"))).click();
-        selectRecordByText("25");
+        selectRecordByText("50");
         scrollHalfPage();
         List<WebElement> processRows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(text(), '13815')]")));
         assertFalse("Карточка с ID 13815 не найдена.", processRows.isEmpty());
