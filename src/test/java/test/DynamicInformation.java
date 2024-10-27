@@ -39,13 +39,134 @@ public class DynamicInformation {
         }
     }
     @Test
-    public void testDropdownSelection() throws InterruptedException {
+    public void test12525() throws InterruptedException {
         System.out.println("Запуск теста выбора элемента из выпадающего списка.");
         loginAndNavigateToRegistry("Egor", "2");
         performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
         selectRecordByText("25");
         scrollHalfPage();
-        navigateToProcessRecord();
+        navigateToProcessRecord("12525");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test13827() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("13827");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5926() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5926");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5891() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5891");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5865() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5865");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5796() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5796");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5795() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5795");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5794() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5794");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5793() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5793");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5792() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5792");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5791() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5791");
+        gatherInformationFromCard();
+        System.out.println("Тест завершен.");
+    }
+    @Test
+    public void test5790() throws InterruptedException {
+        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
+        loginAndNavigateToRegistry("Egor", "2");
+        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+        selectRecordByText("25");
+        scrollHalfPage();
+        navigateToProcessRecord("5790");
         gatherInformationFromCard();
         System.out.println("Тест завершен.");
     }
@@ -141,33 +262,18 @@ public class DynamicInformation {
         wait.until(ExpectedConditions.elementToBeClickable(By.id(elementId))).click();
         System.out.println("Успешный вход: пользователь перенаправлен на домашнюю страницу.");
     }
-    private void navigateToProcessRecord() {
-        System.out.println("Переход к реестру записей процессов.");
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Реестр записей процессов')]"))).click();
-        List<WebElement> processRows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(text(), '12525')]")));
-        assertFalse("Карточка с ID 12525 не найдена.", processRows.isEmpty());
+    private void navigateToProcessRecord(String processId) {
+        List<WebElement> processRows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(text(), '" + processId + "')]")));
+        assertFalse("Карточка с ID " + processId + " не найдена.", processRows.isEmpty());
         for (WebElement processRow : processRows) {
-            if (processRow.getText().contains("12525")) {
-                WebElement actionsButton = wait.until(ExpectedConditions.elementToBeClickable(processRow.findElement(By.xpath(".//ancestor::tr//button[contains(@id, 'dropdownMenuButton')]"))));
-                actionsButton.click();
-                System.out.println("Кликнули на кнопку действий для карточки с ID 12525.");
-                List<WebElement> dropdownItems = driver.findElements(By.xpath("//div[contains(@class, 'dropdown-menu')]//a"));
-                WebElement openButton = null;
-                for (WebElement dropdownItem : dropdownItems) {
-                    if (dropdownItem.getText().contains("Открыть")) {
-                        openButton = dropdownItem;
-                        break;
-                    }
-                }
-                if (openButton != null) {
-                    JavascriptExecutor js = (JavascriptExecutor) driver;
-                    js.executeScript("arguments[0].click();", openButton);
-                    wait.until(ExpectedConditions.urlContains("/jsp/application/action.jsp"));
-                    System.out.println("Перешли на страницу открытой карточки.");
-                } else {
-                    fail("Кнопка 'Открыть' не найдена.");
-                }
-                break;
+            WebElement actionsButton = processRow.findElement(By.xpath(".//ancestor::tr//button[contains(@id, 'dropdownMenuButton')]"));
+            actionsButton.click();
+            WebElement openButton = driver.findElements(By.xpath("//div[contains(@class, 'dropdown-menu')]//a[contains(text(), 'Открыть')]")).stream().findFirst().orElse(null);
+            if (openButton != null) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", openButton);
+                wait.until(ExpectedConditions.urlContains("/jsp/application/action.jsp"));
+            } else {
+                fail("Кнопка 'Открыть' не найдена.");
             }
         }
     }
