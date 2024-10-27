@@ -269,7 +269,7 @@ public class OptTest {
         } catch (NoSuchElementException e) {
             System.err.println("Элемент не найден: " + e.getMessage());
         } catch (TimeoutException e) {
-            System.err.println("Время ожидания истекло: " + e.getMessage());
+            System.err.println("Время ожидания истекло:" + e.getMessage());
         } catch (Exception e) {
             System.err.println("Произошла ошибка: " + e.getMessage());
         }
