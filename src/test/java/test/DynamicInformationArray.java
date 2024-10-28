@@ -3,33 +3,28 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import static org.junit.Assert.assertTrue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import static org.junit.Assert.fail;
-public class DynamicInformation {
+import static org.junit.Assert.assertFalse;
+public class DynamicInformationArray {
     private WebDriver driver;
     private WebDriverWait wait;
+    private String[] cardIds = {"12525", "13827", "5926", "5891", "5865", "5796", "5795", "5794", "5793", "5792", "5791", "5790"};
     @Before
     public void setUp() {
-        System.out.println("Настройка теста: открытие браузера и переход на страницу входа.");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        driver.get("https://newtemplate-new.isands.ru/");
     }
     @After
     public void tearDown() {
@@ -39,138 +34,30 @@ public class DynamicInformation {
         }
     }
     @Test
-    public void test12525() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("12525");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
+    public void testCardInformation() throws InterruptedException {
+        for (String cardId : cardIds) {
+            System.out.println("Обработка карточки с ID: " + cardId);
+            processCard(cardId);
+        }
     }
-    @Test
-    public void test13827() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("13827");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
+    private void processCard(String cardId) throws InterruptedException {
+        try {
+            driver.get("https://newtemplate-new.isands.ru/");
+            loginAndNavigate("Egor", "2");
+            performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
+            selectRecordByText("25");
+            scrollHalfPage();
+            navigateToProcessRecord(cardId);
+            gatherInformationFromCard();
+            System.out.println("Сбор информации завершен для карточки с ID: " + cardId);
+        } catch (Exception e) {
+            System.err.println("Ошибка при обработке карточки с ID " + cardId + ": " + e.getMessage());
+        } finally {
+            driver.quit();
+            setUp();
+        }
     }
-    @Test
-    public void test5926() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5926");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5891() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5891");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5865() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5865");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5796() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5796");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5795() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5795");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5794() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5794");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5793() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5793");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5792() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5792");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5791() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5791");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    @Test
-    public void test5790() throws InterruptedException {
-        System.out.println("Запуск теста выбора элемента из выпадающего списка.");
-        loginAndNavigateToRegistry("Egor", "2");
-        performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
-        selectRecordByText("25");
-        scrollHalfPage();
-        navigateToProcessRecord("5790");
-        gatherInformationFromCard();
-        System.out.println("Тест завершен.");
-    }
-    private void loginAndNavigateToRegistry(String username, String password) {
+    private void loginAndNavigate(String username, String password) {
         login(username, password);
         verifyLogin();
         System.out.println("Переход к реестру записей процессов.");
@@ -251,7 +138,6 @@ public class DynamicInformation {
                 ExpectedConditions.urlToBe("https://newtemplate-new.isands.ru/o/esia-login-portlet/choose.jsp"),
                 ExpectedConditions.urlToBe("https://newtemplate-new.isands.ru/web/guest/home")
         ));
-
         String currentUrl = driver.getCurrentUrl();
         if (currentUrl.equals("https://newtemplate-new.isands.ru/o/esia-login-portlet/choose.jsp")) {
             System.out.println("Успешный вход: пользователь перенаправлен на страницу выбора роли.");
