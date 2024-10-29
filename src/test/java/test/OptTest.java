@@ -156,6 +156,7 @@ public class OptTest {
             String actualFio = fioComponent.getAttribute("value");
             System.out.println("Полученное значение ФИО: " + actualFio);
             verifyFieldValue("ezx1w5v-fio", expectedFio);
+            Thread.sleep(2000);
             WebElement cityComponent = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ef34esi-city")));
             String actualCity = cityComponent.getAttribute("value");
             System.out.println("Полученное значение Город: " + actualCity);
@@ -205,13 +206,19 @@ public class OptTest {
     }
     private void selectRecordByText(String searchText) {
         WebElement recordsDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("select[name='applicationTable_length']")));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Select select = new Select(recordsDropdown);
         select.selectByVisibleText(searchText);
         System.out.println("Элемент с текстом '" + searchText + "' выбран.");
         wait.until(ExpectedConditions.attributeToBe(recordsDropdown, "value", searchText));
     }
     private void navigateToProcessRecord() {
-         System.out.println("Переход к реестру записей процессов.");
+        System.out.println("Переход к реестру записей процессов.");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Реестр записей процессов')]"))).click();
         selectRecordByText("50");
         scrollHalfPage();

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -44,10 +45,12 @@ public class DynamicInformationArray {
         try {
             driver.get("https://newtemplate-new.isands.ru/");
             loginAndNavigate("Egor", "2");
+            Thread.sleep(2000);
             performSearch("107_v1 | ФИЛЬТРАЦИЯ ДАННЫЕ | ТЕСТИРОВАНИЕ");
             selectRecordByText("25");
             scrollHalfPage();
             navigateToProcessRecord(cardId);
+            Thread.sleep(2000);
             gatherInformationFromCard();
             System.out.println("Сбор информации завершен для карточки с ID: " + cardId);
         } catch (Exception e) {
@@ -67,7 +70,6 @@ public class DynamicInformationArray {
         WebElement navbarToggle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button.navbar-toggler")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", navbarToggle);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", navbarToggle);
-        System.out.println("Кнопка 'navbar-toggler' нажата.");
     }
     private void performSearch(String searchText) throws InterruptedException {
         WebElement selectizeInput = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#BusinessModelIdSearchElement-selectized")));
@@ -76,6 +78,7 @@ public class DynamicInformationArray {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.selectize-dropdown.multi")));
         List<WebElement> dropdownItems = driver.findElements(By.cssSelector("div.selectize-dropdown.multi .option[data-selectable]"));
         System.out.println("Найдено элементов в выпадающем списке: " + dropdownItems.size());
+        Thread.sleep(2000);
         if (dropdownItems.isEmpty()) {
             System.err.println("Выпадающий список пуст.");
             return;
@@ -97,6 +100,7 @@ public class DynamicInformationArray {
         if (!found) {
             return;
         }
+        Thread.sleep(2000);
         WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn-primary[name='fwe']")));
         new Actions(driver).moveToElement(searchButton).perform();
         searchButton.click();
@@ -192,13 +196,13 @@ public class DynamicInformationArray {
         String actualNumber = numberComponent.getAttribute("value");
         System.out.println("Полученное значение Номер: " + actualNumber);
         List<WebElement> additionalInfoRows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("tbody[ref='datagrid-dop_sved-tbody'] tr")));
+        List<String> additionalInfo = new ArrayList<>();
         if (!additionalInfoRows.isEmpty()) {
             for (WebElement row : additionalInfoRows) {
                 String child = row.findElement(By.cssSelector("input[name*='[child]']")).getAttribute("value");
                 String age = row.findElement(By.cssSelector("input[name*='[age]']")).getAttribute("value");
-                if (child.isEmpty() && age.isEmpty()) {
-                    System.out.println("Дополнительные сведения отсутствуют.");
-                } else {
+                if (!child.isEmpty() && !age.isEmpty()) {
+                    additionalInfo.add("Ребенок: " + child + ", Возраст: " + age);
                     System.out.println("Дополнительные сведения - Ребенок: " + child + ", Возраст: " + age);
                 }
             }
@@ -210,12 +214,17 @@ public class DynamicInformationArray {
         System.out.println("Полученное значение Даты: " + actualDate);
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedActualDate = "";
         try {
             Date date = inputFormat.parse(actualDate);
-            String formattedActualDate = outputFormat.format(date);
+            formattedActualDate = outputFormat.format(date);
             System.out.println("Отформатированное значение Даты: " + formattedActualDate);
         } catch (ParseException e) {
             System.err.println("Ошибка разбора даты: " + e.getMessage());
         }
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        dbHandler.addOrUpdateRecord(actualId, actualFio, actualCity, actualStreet, actualNumber, additionalInfo, formattedActualDate);
+        dbHandler.printAllRecords();
+        dbHandler.close();
     }
 }
