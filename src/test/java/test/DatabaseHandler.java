@@ -1,8 +1,6 @@
 package test;
-
 import java.sql.*;
 import java.util.List;
-
 public class DatabaseHandler {
     private Connection connection;
     public DatabaseHandler() {
@@ -37,10 +35,10 @@ public class DatabaseHandler {
     public void addOrUpdateRecord(String id, String fio, String city, String street, String number, List<String> additionalInfo, String date) {
         String additionalInfoStr = String.join(", ", additionalInfo);
         try {
-            String sql = "INSERT INTO records (id, fio, city, street, number, date, additional_info) " + // Переместили "date" перед "additional_info"
+            String sql = "INSERT INTO records (id, fio, city, street, number, date, additional_info) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?) " +
                     "ON CONFLICT(id) DO UPDATE SET fio = excluded.fio, city = excluded.city, " +
-                    "street = excluded.street, number = excluded.number, date = excluded.date, " + // Переместили "date"
+                    "street = excluded.street, number = excluded.number, date = excluded.date, " +
                     "additional_info = excluded.additional_info;";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, id);

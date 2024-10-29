@@ -306,13 +306,13 @@ public class DynamicInformation {
         String actualNumber = numberComponent.getAttribute("value");
         System.out.println("Полученное значение Номер: " + actualNumber);
         List<WebElement> additionalInfoRows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("tbody[ref='datagrid-dop_sved-tbody'] tr")));
+        List<String> additionalInfo = new ArrayList<>();
         if (!additionalInfoRows.isEmpty()) {
             for (WebElement row : additionalInfoRows) {
                 String child = row.findElement(By.cssSelector("input[name*='[child]']")).getAttribute("value");
                 String age = row.findElement(By.cssSelector("input[name*='[age]']")).getAttribute("value");
-                if (child.isEmpty() && age.isEmpty()) {
-                    System.out.println("Дополнительные сведения отсутствуют.");
-                } else {
+                if (!child.isEmpty() && !age.isEmpty()) {
+                    additionalInfo.add("Ребенок: " + child + ", Возраст: " + age);
                     System.out.println("Дополнительные сведения - Ребенок: " + child + ", Возраст: " + age);
                 }
             }
@@ -324,12 +324,17 @@ public class DynamicInformation {
         System.out.println("Полученное значение Даты: " + actualDate);
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedActualDate = "";
         try {
             Date date = inputFormat.parse(actualDate);
-            String formattedActualDate = outputFormat.format(date);
+            formattedActualDate = outputFormat.format(date);
             System.out.println("Отформатированное значение Даты: " + formattedActualDate);
         } catch (ParseException e) {
             System.err.println("Ошибка разбора даты: " + e.getMessage());
         }
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        dbHandler.addOrUpdateRecord(actualId, actualFio, actualCity, actualStreet, actualNumber, additionalInfo, formattedActualDate);
+        dbHandler.printAllRecords();
+        dbHandler.close();
     }
 }

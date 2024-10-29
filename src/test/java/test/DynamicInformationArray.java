@@ -87,6 +87,7 @@ public class DynamicInformationArray {
         for (WebElement item : dropdownItems) {
             try {
                 if (item.getText().equals(searchText)) {
+                    Thread.sleep(3000);
                     new Actions(driver).moveToElement(item).perform();
                     item.click();
                     System.out.println("Элемент '" + item.getText() + "' выбран.");
