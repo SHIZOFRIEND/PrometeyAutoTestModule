@@ -46,8 +46,8 @@ public class DatabaseHandler {
             pstmt.setString(3, city);
             pstmt.setString(4, street);
             pstmt.setString(5, number);
-            pstmt.setString(6, date); // Переместили "date"
-            pstmt.setString(7, additionalInfoStr); // Переместили "additional_info"
+            pstmt.setString(6, date);
+            pstmt.setString(7, additionalInfoStr);
             pstmt.executeUpdate();
             System.out.println("Запись успешно добавлена или обновлена.");
         } catch (SQLException e) {

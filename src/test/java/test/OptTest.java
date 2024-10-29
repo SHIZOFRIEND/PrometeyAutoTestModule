@@ -211,7 +211,6 @@ public class OptTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         Select select = new Select(recordsDropdown);
         select.selectByVisibleText(searchText);
         System.out.println("Элемент с текстом '" + searchText + "' выбран.");
