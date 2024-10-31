@@ -203,6 +203,7 @@ public class OptTest {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Long windowHeight = (Long) js.executeScript("return window.innerHeight;");
         js.executeScript("window.scrollBy(0, arguments[0] / 2);", windowHeight);
+
     }
     private void selectRecordByText(String searchText) {
         WebElement recordsDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("select[name='applicationTable_length']")));
@@ -220,13 +221,26 @@ public class OptTest {
         System.out.println("Переход к реестру записей процессов.");
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Реестр записей процессов')]"))).click();
         selectRecordByText("50");
-        scrollHalfPage();
+        try {
+            Thread.sleep(2000);
+            scrollHalfPage();
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("Операция была прервана: " + e.getMessage());
+            Thread.currentThread().interrupt();
+        }
         List<WebElement> processRows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(text(), '13815')]")));
         assertFalse("Карточка с ID 13815 не найдена.", processRows.isEmpty());
         for (WebElement processRow : processRows) {
             if (processRow.getText().contains("13815")) {
                 WebElement actionsButton = wait.until(ExpectedConditions.elementToBeClickable(processRow.findElement(By.xpath(".//ancestor::tr//button[contains(@id, 'dropdownMenuButton')]"))));
                 actionsButton.click();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    System.out.println("Операция была прервана: " + e.getMessage());
+                    Thread.currentThread().interrupt();
+                }
                 System.out.println("Кликнули на кнопку действий для карточки с ID 13815.");
                 List<WebElement> dropdownItems = driver.findElements(By.xpath("//div[contains(@class, 'dropdown-menu')]//a"));
                 WebElement openButton = null;
